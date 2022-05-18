@@ -4,7 +4,9 @@ import com.codeup.springblog.repositories.AdRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/ads")
@@ -19,6 +21,13 @@ public class AdController {
     public String allAds(Model model){
         model.addAttribute("ads", adDao.findAll());
             return "ads/index";
-
     }
+
+    @PostMapping("/search")
+    public String searchResults(@RequestParam(name = "title") String title, Model model){
+//        model.addAttribute("results", adDao.findByTitle(title));
+        model.addAttribute("results", adDao.searchByTitleLike(title));
+        return "ads/search";
+    }
+
 }
