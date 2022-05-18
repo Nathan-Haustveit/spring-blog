@@ -12,6 +12,8 @@ public class Post {
     private String title;
     @Column(nullable = false, length = 300)
     private String body;
+    @OneToOne
+    private PostDetails postDetails;
 
     public Post(){}
 
@@ -48,6 +50,14 @@ public class Post {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public PostDetails getPostDetails() {
+        return postDetails;
+    }
+
+    public void setPostDetails(PostDetails postDetails) {
+        this.postDetails = postDetails;
     }
 }
 

@@ -8,5 +8,15 @@
     <h2 th:text="${post.title}"></h2>
     <p>Post number <span th:text="${id}"></span></p>
     <h2 th:text="${post.body}"></h2>
+
+    <h1 th:text="${pet.name}"></h1>
+    <h3>Weighs: <span th:text="${pet.petDetails.weightInOunces}"></span></h3>
+    <h3 th:text="${pet.petDetails.personalityDescription}"></h3>
+
+    <form th:action="@{/pets/update/{id}(id=${pet.id})}" th:method="post">
+        <label for="personality">Personality</label>
+        <input id="personality" type="text" name="personality" th:value="${pet.petDetails.personalityDescription}">
+        <button>Change Personality</button>
+    </form>
 </body>
 </html>
