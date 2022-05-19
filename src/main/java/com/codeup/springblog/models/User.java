@@ -4,8 +4,34 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column(nullable = false)
+    private String username;
+
+    @Column(nullable = false)
+    private String email;
+
+    @Column(nullable = false)
+    private String password;
+
+    public List<Post> getPost() {
+        return post;
+    }
+
+    public void setPost(List<Post> post) {
+        this.post = post;
+    }
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Post> post;
+
+    public User(){}
 
     public User(String username, String email, String password) {
         this.username = username;
@@ -13,19 +39,12 @@ public class User {
         this.password = password;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @Column(nullable = false)
-    private String username;
-    @Column(nullable = false)
-    private String email;
-    @Column(nullable = false)
-    private String password;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<Post> post;
-
-    public User(){}
+    public User(Long id, String username, String email, String password) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
 
     public long getId() {
         return id;
@@ -57,13 +76,5 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public List<Post> getPost() {
-        return post;
-    }
-
-    public void setPost(List<Post> post) {
-        this.post = post;
     }
 }
