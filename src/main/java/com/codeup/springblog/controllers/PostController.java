@@ -37,16 +37,16 @@ public class PostController {
     }
 
     @GetMapping("/create")
-    public String createPost(){
-
+    public String createPost(Model model){
+        model.addAttribute("post", new Post());
         return "posts/create";
     }
 
 
     @PostMapping("/create")
-    public String addPost(@RequestParam(name = "title")String title,@RequestParam(name="body")String body){
-        User user = userDao.getById(2l);
-        Post post = new Post(title,body,user);
+    public String doCreatePost(@ModelAttribute Post post){
+        User user = userDao.getById(2L);
+        post.setUser(user);
         postDao.save(post);
         return "redirect:/posts";
     }

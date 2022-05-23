@@ -1,10 +1,8 @@
 package com.codeup.springblog.controllers;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class MathController {
@@ -37,4 +35,41 @@ public class MathController {
     public Integer divTwoNumbers(@PathVariable int number1, @PathVariable int number2){
         return number1 / number2;
     }
+
+    @GetMapping("/math")
+    public String math(){
+        return "math/index";
+    }
+
+    @PostMapping("/math")
+    public String doMath(
+            // do the math itself
+            @RequestParam(name = "inputA") double inputA,
+            @RequestParam(name = "inputB") double inputB,
+            @RequestParam(name = "operation") String operation,
+            Model model
+    ) {
+
+        double total = 0L;
+
+        switch(operation) {
+            case "add":
+                total = inputA + inputB;
+                break;
+            case "subtract":
+                total = inputA - inputB;
+                break;
+            case "multiply":
+                total = inputA * inputB;
+                break;
+            case "divide":
+                total = inputA / inputB;
+                break;
+        }
+
+        model.addAttribute("total", total);
+
+        return "math/index";
+    }
+
 }
