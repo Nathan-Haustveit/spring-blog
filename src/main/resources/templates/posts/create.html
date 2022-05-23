@@ -4,7 +4,7 @@
 <body>
 <nav th:replace="partials/partials.html :: navbar"></nav>
         <h1>Add a Post</h1>
-        <form th:action="@{/posts/create}" th:method="post" th:object="${post}">
+        <form th:action="@{'/posts/' + ${(post.id ==0)? 'create' : 'edit' }}" th:method="post" th:object="${post}">
             Title:
             <input th:field="*{title}"/>
             <br>
